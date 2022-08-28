@@ -1,0 +1,17 @@
+[dev]
+  command = "npm start"
+  targetPort = 8000
+  autoLaunch = false
+
+[build]
+  command = "gatsby build"
+  publish = "public/" 
+  functions = "functions/"
+
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
+
+[[headers]]
+  for = "/*"
+    [headers.values]
+    Access-Control-Allow-Origin = "*"
