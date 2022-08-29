@@ -11,17 +11,17 @@ const client = new faunadb.Client({
 
 const typeDefs = gql`
   type Query {
-    getTodos: [Todo!]
+    getTodos: [Todo]
   }
   type Todo {
-    id: ID!
-    title: String!
-    completed: Boolean!
+    id: String
+    title: String
+    completed: Boolean
   }
   type Mutation {
-    addTodo(title: String!): Todo!
-    deleteTodo(id: ID!): Todo!
-    updateTodo(completed: Boolean, id: ID, title: String): Todo!
+    addTodo(title: String): Todo
+    deleteTodo(id: String): Todo
+    updateTodo(completed: Boolean, id: String, title: String): Todo
   }
 `;
 
@@ -77,8 +77,9 @@ const resolvers = {
         const { data, ref } = await client.query(
           q.Delete(q.Ref(q.Collection(`todos`), id)),
         );
+        console.log(ref)
         return {
-          ...ref.id,
+          id,
           ...data,
         };
       } catch (err) {

@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "jsx": "react-jsx",
     "module": "esnext",
     "moduleResolution": "node",
@@ -11,10 +14,19 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/static/*": ["./static/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@/static/*": [
+        "./static/*"
+      ]
     }
   },
-  "exclude": ["node_modules"],
-  "include": ["./src/**/*", "./__helpers__/*"]
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "./src/**/*",
+    "./declaration.d.ts"
+  ]
 }

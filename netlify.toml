@@ -12,6 +12,9 @@
 [[plugins]]
   package = "@netlify/plugin-functions-install-core"
 
+[context.dev.environment]
+  FAUNADB_SERVER_SECRET = "fnAEris3GVACSW8U2MVTtqyVS_C6au3qbiZEXCe_"
+
 [[headers]]
   for = "/*"
     [headers.values]

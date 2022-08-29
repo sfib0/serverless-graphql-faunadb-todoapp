@@ -21,8 +21,8 @@ export const MUTATION_ADD_TODO = gql`
 `;
 
 export const MUTATION_DELETE_TODO = gql`
-  mutation DeleteTodo($deleteTodoId: ID!) {
-    deleteTodo(id: $deleteTodoId) {
+  mutation DeleteTodo($id: String!) {
+    deleteTodo(id: $id) {
       id
       title
       completed
@@ -31,11 +31,11 @@ export const MUTATION_DELETE_TODO = gql`
 `;
 
 export const MUTATION_UPDATE_TODO = gql`
-  mutation UpdateTodo($id: ID, $title: String, $completed: Boolean) {
+  mutation UpdateTodo($id: String, $title: String, $completed: Boolean) {
     updateTodo(id: $id, title: $title, completed: $completed) {
       id
       title
       completed
     }
   }
-`;
+`; 

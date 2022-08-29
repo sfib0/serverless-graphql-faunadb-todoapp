@@ -1,0 +1,48 @@
+.container {
+  margin: 10px;
+  padding: 10px;
+}
+
+.singleItem {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header {
+  font-size: 6vw;
+  text-align: center;
+}
+
+.box {
+  cursor: pointer;
+  font-size: 3vw;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  gap: 2em;
+}
+
+.title {
+  cursor: pointer;
+  font-size: 3vw;
+}
+
+.editForm {
+  display: flex;
+  gap: 1em;
+}
+
+.input {
+  height: 3vw;
+  font-size: 3vw;
+  border-radius: 9px;
+  padding: 1vw;
+  margin-block: 6%;
+}
+
+.checkmark {
+  font-size: 3vw;
+  cursor: pointer;
+}
