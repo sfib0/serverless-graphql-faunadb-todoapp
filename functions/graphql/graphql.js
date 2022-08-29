@@ -1,7 +1,9 @@
 const { ApolloServer, gql } = require(`apollo-server-lambda`);
 const faunadb = require(`faunadb`);
 const q = faunadb.query;
-require(`dotenv`).config();
+const dotenv = require(`dotenv`);
+
+dotenv.config();
 
 const client = new faunadb.Client({
   secret: process.env.FAUNADB_SERVER_SECRET,

@@ -2,6 +2,7 @@
   command = "npm start"
   targetPort = 8000
   autoLaunch = false
+  framework = "#custom"
 
 [build]
   command = "gatsby build"
