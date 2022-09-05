@@ -9,13 +9,12 @@
 }
 
 .header {
-  font-size: 6vw;
+  font-size: 12vw;
   text-align: center;
 }
 
 .box {
   cursor: pointer;
-  font-size: 3vw;
 }
 
 .options {
@@ -26,26 +25,33 @@
 
 .title {
   cursor: pointer;
-  font-size: 3vw;
 }
 
 .editForm {
   display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 1em;
-  width: 100%;
 }
 
 .input {
-  height: 3vw;
-  font-size: 3vw;
+  height: 20px;
   border-radius: 9px;
-  padding: 1vw;
+  padding: 5px;
   margin-block: 6%;
 }
 
 .checkmark {
-  font-size: 3vw;
   cursor: pointer;
+}
+
+.indicatorContainer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.indicatorEmoji {
+  font-size: 8vw;
 }
