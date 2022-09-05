@@ -1,7 +1,10 @@
-import { MUTATION_ADD_TODO, MUTATION_DELETE_TODO, MUTATION_UPDATE_TODO, QUERY_GET_TODOS } from "@/ops";
-import { useMutation, useQuery } from "@apollo/client";
 import { useState } from "react";
+
+import { MUTATION_ADD_TODO, MUTATION_DELETE_TODO, MUTATION_UPDATE_TODO, QUERY_GET_TODOS } from "@/ops";
+import { useMutation, useQuery, NetworkStatus } from "@apollo/client";
+
 import * as styles from '../css/style.module.css'
+import Indicator from "@/components/Indicator";
 interface TodoI {
   id: string;
   title: string;
@@ -19,16 +22,19 @@ export default function Home() {
 
   const [title, setTitle] = useState("");
 
-  const { loading, error, data, refetch } = useQuery(QUERY_GET_TODOS);
+  const { loading, error, data, refetch, networkStatus } = useQuery(QUERY_GET_TODOS, {
+    notifyOnNetworkStatusChange: true,
+  });
 
   const [UpdateTodo] = useMutation(MUTATION_UPDATE_TODO);
   const [DeleteTodo] = useMutation(MUTATION_DELETE_TODO);
   const [AddTodo] = useMutation(MUTATION_ADD_TODO);
 
   if (loading) {
-    return '🎁'
+    return <Indicator message="Wait!" />
   } else if (error) {
-    return '🚑'
+    console.log(error)
+    return <Indicator message="Error!" error={error} />
   }
 
   const updateTodoFunc = (e: any, id: string, title: string) => {
@@ -39,8 +45,7 @@ export default function Home() {
   }
 
   const displayInput = (id: string, completed: boolean) => {
-    return (<form className={styles.editForm} onSubmit={(e) => {
-      e.preventDefault()
+    return (<form className={styles.editForm} onSubmit={() => {
       UpdateTodo({
         variables: {
           id,
@@ -55,6 +60,8 @@ export default function Home() {
       <p className={styles.checkmark}>✔️</p>
     </form>)
   }
+
+  if (networkStatus === NetworkStatus.refetch) return 'Refetching!';
 
   return <div className={styles.container}>
     <header className={styles.header}>Todo App</header>
@@ -73,27 +80,28 @@ export default function Home() {
           })}>
             {checkboxReturner(item.completed)}
           </p>
-          <p className={styles.box} onClick={() => {
-            DeleteTodo({
+          <p className={styles.box} onClick={async (e) => {
+            e.preventDefault();
+            await DeleteTodo({
               variables: {
                 id: item.id
               }
-            })
-            refetch()
+            });
+            refetch();
           }}>🗑️</p>
         </div>
       </div>
     ))}
-    {/* TODO: Complete add mutation */}
     <div className={styles.singleItem}>
-      <form className={styles.editForm} onSubmit={(e) => {
-        e.preventDefault();
-        AddTodo({
+      <form className={styles.editForm} onSubmit={async (e) => {
+        e.preventDefault()
+        await AddTodo({
           variables: {
             title,
           }
-        })
-        refetch()
+        });
+        refetch();
+        setTitle("")
       }}>
         <input value={title} className={styles.input} onChange={(e) => setTitle(e.target.value)} />
         <p className={styles.checkmark}>✔️</p>
