@@ -17,11 +17,13 @@ export default function Home() {
   const [inputForID, toogleInputForID] = useState("");
   const [newTitle, setNewTitle] = useState("");
 
-  const { loading, error, data } = useQuery(QUERY_GET_TODOS);
+  const [title, setTitle] = useState("");
+
+  const { loading, error, data, refetch } = useQuery(QUERY_GET_TODOS);
 
   const [UpdateTodo] = useMutation(MUTATION_UPDATE_TODO);
-
-  const [DeleteTodo] = useMutation(MUTATION_DELETE_TODO)
+  const [DeleteTodo] = useMutation(MUTATION_DELETE_TODO);
+  const [AddTodo] = useMutation(MUTATION_ADD_TODO);
 
   if (loading) {
     return '🎁'
@@ -71,23 +73,31 @@ export default function Home() {
           })}>
             {checkboxReturner(item.completed)}
           </p>
-          <p className={styles.box} onClick={() => DeleteTodo({
-            variables: {
-              id: item.id
-            }
-          })}>🗑️</p>
+          <p className={styles.box} onClick={() => {
+            DeleteTodo({
+              variables: {
+                id: item.id
+              }
+            })
+            refetch()
+          }}>🗑️</p>
         </div>
       </div>
     ))}
     {/* TODO: Complete add mutation */}
-    {/* <div className={styles.singleItem}>
-      <form className={styles.editForm} onSubmit={(e) => {}>
-        <input value={""} className={styles.input} onChange={(e) => {} />
+    <div className={styles.singleItem}>
+      <form className={styles.editForm} onSubmit={(e) => {
+        e.preventDefault();
+        AddTodo({
+          variables: {
+            title,
+          }
+        })
+        refetch()
+      }}>
+        <input value={title} className={styles.input} onChange={(e) => setTitle(e.target.value)} />
         <p className={styles.checkmark}>✔️</p>
       </form>
-      <p className={styles.box} onClick={() => {}}>
-        ✅
-      </p>
-    </div> */}
+    </div>
   </div>;
 }
