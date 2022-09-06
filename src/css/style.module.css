@@ -1,57 +1,118 @@
-.container {
-  margin: 10px;
-  padding: 10px;
-}
-
-.singleItem {
-  display: flex;
-  justify-content: space-between;
-}
-
 .header {
-  font-size: 12vw;
-  text-align: center;
+  font-size: 2rem;
 }
 
-.box {
-  cursor: pointer;
-}
-
-.options {
-  display: flex;
-  justify-content: space-between;
-  gap: 2em;
-}
-
-.title {
-  cursor: pointer;
-}
-
-.editForm {
-  display: flex;
-  gap: 1em;
-}
-
-.input {
-  height: 20px;
-  border-radius: 9px;
-  padding: 5px;
-  margin-block: 6%;
-}
-
-.checkmark {
-  cursor: pointer;
-}
-
-.indicatorContainer {
-  width: 100%;
-  height: 100vh;
+.header,
+.addForm {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  margin: 0.5rem;
 }
 
-.indicatorEmoji {
-  font-size: 8vw;
+.addForm input,
+.addForm button {
+  padding: 0.7rem;
+  width: 100%;
+  height: auto;
+  font-size: 2rem;
+  border: none;
+  border-color: black;
+  border-style: solid;
+}
+
+.addForm input {
+  border-radius: 9px 0px 0px 9px;
+  background: #FFCFD2;
+  border-width: 2px 0px 2px 2px;
+  max-width: 350px;
+}
+
+.addForm button {
+  background: #7b68ee;
+  color: white;
+  border-radius: 0px 9px 9px 0px;
+  border-width: 2px;
+  max-width: 80px;
+  transition: background-color .2s cubic-bezier(.785, .135, .15, .86) 0s;
+}
+
+.addForm button:hover {
+  outline: 0;
+  background-color: #5f48ea;
+}
+
+.updateForm {
+  margin-block: 23px;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.2rem;
+}
+
+.updateForm input {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  width: 100%;
+  max-width: 170px;
+  outline: none;
+}
+
+.updateForm button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.todoList {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  max-width: 448px;
+}
+
+.todoItem {
+  padding-inline: 18px;
+  margin: 0.5rem;
+  border-radius: 9px;
+  background: #FFCFD2;
+  border: 2px solid black;
+  font-size: 1.5rem;
+}
+
+.options {
+  gap: 1em;
+}
+
+.todoItem, .options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.todoItem>p {
+  cursor: pointer;
+}
+
+.indicEmote {
+  font-size: 9vw;
+}
+
+.indicMess {
+  font-size: 3vw;
+}
+
+.emoteButton {
+  background: transparent;
+  border: none;
+  font-size: 20px;
 }
