@@ -2,16 +2,23 @@
   font-size: 2rem;
 }
 
-.header,
-.addForm {
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.header, .addForm {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0.5rem;
 }
 
-.addForm input,
-.addForm button {
+.addForm input, .addForm button {
   padding: 0.7rem;
   width: 100%;
   height: auto;
@@ -61,17 +68,7 @@
 .updateForm button {
   background: transparent;
   border: none;
-  cursor: pointer;
   font-size: 1rem;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
 }
 
 .todoList {
@@ -99,7 +96,7 @@
   justify-content: space-between;
 }
 
-.todoItem>p {
+.todoItem>p, .updateForm button {
   cursor: pointer;
 }
 
