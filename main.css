@@ -3,3 +3,17 @@
 * {
   font-family: 'Montserrat', sans-serif;
 }
+
+body {
+  background-image: url(./src/images/background.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

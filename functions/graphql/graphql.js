@@ -59,7 +59,7 @@ const resolvers = {
           q.Create(q.Collection(`todos`), {
             data: {
               title: args.title,
-              completed: true,
+              completed: false,
             },
           }),
         );
