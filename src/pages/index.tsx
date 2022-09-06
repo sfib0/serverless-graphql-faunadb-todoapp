@@ -89,6 +89,12 @@ export default function Home() {
 
   return <div className={styles.container}>
     <header className={styles.header}>Todo App</header>
+    <TodoForm
+      formClassName="addForm"
+      title={title}
+      setTitle={setTitle}
+      onSubmit={AddTodoFunc}
+    />
     <ul className={styles.todoList}>
       {data.getTodos.map((item: TodoI) => (
         <li className={styles.todoItem} key={item.id}>
@@ -113,11 +119,5 @@ export default function Home() {
         </li>
       ))}
     </ul>
-    <TodoForm
-      formClassName="addForm"
-      title={title}
-      setTitle={setTitle}
-      onSubmit={AddTodoFunc}
-    />
   </div>;
 }
