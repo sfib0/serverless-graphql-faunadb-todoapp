@@ -46,7 +46,7 @@ export default function Home() {
     }
   }
 
-  const UpdateTodoFunc = (id: string, completed: boolean) => {
+  const onUpdateTodo = (id: string, completed: boolean) => {
     UpdateTodo({
       variables: {
         id,
@@ -58,7 +58,7 @@ export default function Home() {
     toogleInputForID("");
   }
 
-  function onUpdateTodo(id: string, title: string, completed: boolean) {
+  const onClickCheckbox = (id: string, title: string, completed: boolean) => {
     UpdateTodo({
       variables: {
         id, title, completed
@@ -66,7 +66,7 @@ export default function Home() {
     })
   }
 
-  async function onDeleteTodo(e: MouseEvent<HTMLButtonElement>, id: string) {
+  const onDeleteTodo = async (e: MouseEvent<HTMLButtonElement>, id: string) => {
     e.preventDefault();
     await DeleteTodo({
       variables: { id }
@@ -74,7 +74,7 @@ export default function Home() {
     refetch();
   }
 
-  async function AddTodoFunc(e: FormEvent<HTMLFormElement>) {
+  const onAddTodo = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await AddTodo({
       variables: {
@@ -93,14 +93,14 @@ export default function Home() {
       formClassName="addForm"
       title={title}
       setTitle={setTitle}
-      onSubmit={AddTodoFunc}
+      onSubmit={onAddTodo}
     />
     <ul className={styles.todoList}>
       {data.getTodos.map((item: TodoI) => (
         <li className={styles.todoItem} key={item.id}>
           {inputForID === item.id ? (
             <TodoForm
-              onSubmit={() => UpdateTodoFunc(item.id, item.completed)}
+              onSubmit={() => onUpdateTodo(item.id, item.completed)}
               setTitle={setNewTitle}
               title={newTitle}
               formClassName="updateForm"
@@ -109,7 +109,7 @@ export default function Home() {
           <div className={styles.options}>
             <EmoteButton
               emote={checkboxReturner(item.completed)}
-              onClick={() => onUpdateTodo(item.id, item.title, !item.completed)}
+              onClick={() => onClickCheckbox(item.id, item.title, !item.completed)}
             />
             <EmoteButton
               emote="🗑️"
