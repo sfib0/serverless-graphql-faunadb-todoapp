@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { FormEvent, FormEventHandler, MouseEvent, MouseEventHandler, useState } from "react";
 
 import { MUTATION_ADD_TODO, MUTATION_DELETE_TODO, MUTATION_UPDATE_TODO, QUERY_GET_TODOS } from "@/ops";
 import { useMutation, useQuery, NetworkStatus } from "@apollo/client";
 
 import * as styles from '../css/style.module.css'
 import Indicator from "@/components/Indicator";
+import TodoForm from "@/components/TodoForm";
+import EmoteButton from "@/components/EmoteButton";
 interface TodoI {
   id: string;
   title: string;
@@ -37,75 +39,85 @@ export default function Home() {
     return <Indicator message="Error!" error={error} />
   }
 
-  const updateTodoFunc = (e: any, id: string, title: string) => {
+  const UpdateTodoDetect = (e: any, id: string, title: string) => {
     if (e.detail === 2) {
       toogleInputForID(id)
       setNewTitle(title)
     }
   }
 
-  const displayInput = (id: string, completed: boolean) => {
-    return (<form className={styles.editForm} onSubmit={() => {
-      UpdateTodo({
-        variables: {
-          id,
-          title: newTitle,
-          completed
-        }
-      });
-      setNewTitle("");
-      toogleInputForID("");
-    }}>
-      <input value={newTitle} className={styles.input} onChange={(e) => setNewTitle(e.target.value)} />
-      <p className={styles.checkmark}>✔️</p>
-    </form>)
+  const UpdateTodoFunc = (id: string, completed: boolean) => {
+    UpdateTodo({
+      variables: {
+        id,
+        title: newTitle,
+        completed
+      }
+    });
+    setNewTitle("");
+    toogleInputForID("");
+  }
+
+  function onUpdateTodo(id: string, title: string, completed: boolean) {
+    UpdateTodo({
+      variables: {
+        id, title, completed
+      }
+    })
+  }
+
+  async function onDeleteTodo(e: MouseEvent<HTMLButtonElement>, id: string) {
+    e.preventDefault();
+    await DeleteTodo({
+      variables: { id }
+    });
+    refetch();
+  }
+
+  async function AddTodoFunc(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    await AddTodo({
+      variables: {
+        title,
+      }
+    });
+    refetch();
+    setTitle("")
   }
 
   if (networkStatus === NetworkStatus.refetch) return 'Refetching!';
 
   return <div className={styles.container}>
     <header className={styles.header}>Todo App</header>
-    {data.getTodos.map((item: TodoI) => (
-      <div className={styles.singleItem} key={item.id}>
-        {inputForID === item.id ? (
-          displayInput(item.id, item.completed)
-        ) : <p className={styles.title} onClick={(e) => updateTodoFunc(e, item.id, item.title)}>{item.title}</p>}
-        <div className={styles.options}>
-          <p className={styles.box} onClick={() => UpdateTodo({
-            variables: {
-              id: item.id,
-              title: item.title,
-              completed: !item.completed
-            }
-          })}>
-            {checkboxReturner(item.completed)}
-          </p>
-          <p className={styles.box} onClick={async (e) => {
-            e.preventDefault();
-            await DeleteTodo({
-              variables: {
-                id: item.id
-              }
-            });
-            refetch();
-          }}>🗑️</p>
-        </div>
-      </div>
-    ))}
-    <div className={styles.singleItem}>
-      <form className={styles.editForm} onSubmit={async (e) => {
-        e.preventDefault()
-        await AddTodo({
-          variables: {
-            title,
-          }
-        });
-        refetch();
-        setTitle("")
-      }}>
-        <input value={title} className={styles.input} onChange={(e) => setTitle(e.target.value)} />
-        <p className={styles.checkmark}>✔️</p>
-      </form>
-    </div>
+    <ul className={styles.todoList}>
+      {data.getTodos.map((item: TodoI) => (
+        <li className={styles.todoItem} key={item.id}>
+          {inputForID === item.id ? (
+            <TodoForm
+              onSubmit={() => UpdateTodoFunc(item.id, item.completed)}
+              setTitle={setNewTitle}
+              title={newTitle}
+              formClassName="updateForm"
+            />
+          ) : <p onClick={(e) => UpdateTodoDetect(e, item.id, item.title)}>{item.title}</p>}
+          <div className={styles.options}>
+            <EmoteButton
+              emote={checkboxReturner(item.completed)}
+              onClick={() => onUpdateTodo(item.id, item.title, !item.completed)}
+            />
+            <EmoteButton
+              emote="🗑️"
+              onClick={async (e) => onDeleteTodo(e, item.id)}
+            />
+          </div>
+        </li>
+      ))}
+    </ul>
+    <TodoForm
+      formClassName="addForm"
+      title={title}
+      setTitle={setTitle}
+      onSubmit={AddTodoFunc}
+    />
   </div>;
 }

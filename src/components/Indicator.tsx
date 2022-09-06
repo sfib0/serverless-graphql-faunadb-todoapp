@@ -8,10 +8,9 @@ interface IndicatorProps {
 }
 
 const Indicator: React.FC<IndicatorProps> = ({ message, error }) => {
-  // TODO: Style indicator
-  return (<div className={styles.indicatorContainer}>
-    <div className={styles.indicatorEmoji}>{error ? '🚑' : '🎁'}</div>
-    <h3>{message}</h3>
+  return (<div className={styles.container}>
+    <div className={styles.indicEmote}>{error ? '🚑' : '🎁'}</div>
+    <h3 className={styles.indicMess}>{message}</h3>
     <p>{error && `Error: ${JSON.stringify(error)}`}</p>
   </div>)
 }
