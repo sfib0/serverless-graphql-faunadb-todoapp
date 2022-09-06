@@ -1,7 +1,6 @@
-// TODO: Complete README.md file
 #  Todo App
 
-## [Live]()
+## [Live](https://serverless-graphql-faunadb-todoapp.netlify.app/)
 <img src="./preview.gif" />
 
 ## Introduction 
