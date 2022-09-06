@@ -4,7 +4,7 @@
 <img src="./preview.gif" />
 
 ## Introduction 
-Todo App on Gatsby, fetching data from GraphQL server deployed on Netlify Functions with @apollo/client, the GraphQL server gets data from FaunaDB Database, all with TypeScript.
+Todo App on Gatsby, fetching data from GraphQL server deployed on Netlify Functions by using @apollo/client, the GraphQL server gets data from FaunaDB Database, frontend uses TypeScript.
 
 ## Setup
 - Clone repository
