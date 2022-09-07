@@ -1,6 +1,6 @@
 #  Todo App
 
-## [Live](https://serverless-graphql-faunadb-todoapp.netlify.app/)
+## [Live](https://bit.ly/3RCLaO6)
 <img src="./preview.gif" />
 
 ## Introduction 
